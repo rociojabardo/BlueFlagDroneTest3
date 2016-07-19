@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Blue Flag Drone Test3" default="dist" basedir=".">
+
+	<!-- set directories -->
+	<property name="src.dir" location="../src"/>
+	<property name="build.dir" location="build"/>
+	<property name="lib.dir" location="./lib"/>
+	
+	<!-- set global properties for this build -->
+	<property name="project.name" value="BlueFlagDroneTest3"/>
+	<property name="jarname"  value="${project.name}"/>	
+	<property name="main_class" value="rocio.jabardo.main"/>
+
+	<!-- Clean the previous build -->
+	<target name="clean">
+	        <delete dir="${build.dir}"/>
+	    </target>
+
+	<!-- Create build paths -->
+	<target name="init" depends="clean">
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+	<!-- compiling path -->
+	<path id="lib.path.id">
+		<path location="${build.dir}" />
+    	<fileset dir="${lib.dir}"/>
+ 	</path>
+	
+	<!-- compile the main program -->
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false"/>	
+    </target>
+
+
+	<!-- buid .jar-->
+    <target name="dist" depends="compile">
+        <jar destfile="${build.dir}/${jarname}.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main_class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+</project>
+
